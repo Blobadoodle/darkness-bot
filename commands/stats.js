@@ -1,0 +1,50 @@
+const { version, EmbedBuilder } = require('discord.js');
+const package = require('../package.json');
+
+function format_uptime(uptime) {
+    const hours = Math.floor(uptime / (60*60));
+    const minutes = Math.floor(uptime % (60*60) / 60);
+    const seconds = Math.floor(uptime % 60);
+
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// eslint-disable-next-line no-unused-vars
+exports.run = (client, message, args, level) => {
+    const commit = require('child_process')
+        .execSync('git rev-parse --short HEAD')
+        .toString().trim();
+
+    const embed = new EmbedBuilder()
+        .setColor('#0099ff')
+        .setTitle('Stats')
+        .setDescription('Bot status')
+        .addFields(
+            { name: 'Mem Usage', value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, inline: true },
+            { name: 'Users', value: client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b).toString(), inline: true },
+            { name: 'Servers', value: client.guilds.cache.size.toString(), inline: true },
+            { name: 'Channels', value: client.channels.cache.size.toString(), inline: true },
+            { name: 'Discord.js', value: `v${version}`, inline: true },
+            { name: 'Node.js', value: process.version, inline: true },
+            { name: 'Version', value: package.version, inline: true },
+            { name: 'Commit', value: commit, inline: true },
+            { name: 'Uptime', value: format_uptime(process.uptime())}
+        )
+        .setTimestamp();
+    
+    return message.reply({embeds: [embed]});
+};
+
+exports.conf = {
+    enabled: true,
+    guildOnly: false,
+    aliases: [],
+    permLevel: 'Bot Admin'
+};
+
+exports.help = {
+    name: 'stats',
+    category: 'Miscellaneous',
+    description: 'Give some useful bot statistics',
+    usage: 'stats'
+};

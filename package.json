@@ -1,0 +1,29 @@
+{
+  "name": "bot-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blobadoodle/bot-template.git"
+  },
+  "author": "Blobadoodle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Blobadoodle/bot-template/issues"
+  },
+  "homepage": "https://github.com/Blobadoodle/bot-template#readme",
+  "dependencies": {
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.1",
+    "enmap": "^5.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.22.0",
+    "nodemon": "^2.0.19"
+  }
+}
