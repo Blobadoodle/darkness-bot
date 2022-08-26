@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 exports.run = async (client, message, args, level) => {
+    console.log(level);
     const [globalCmds, guildCmds] = client.container.slash.partition(c => !c.conf.guildOnly);
 
     const msg = await message.reply('Deploying commands!');

@@ -52,18 +52,31 @@ exports.run = async (client, interaction) => {
             if(i.customId == 'settingsCancel') {
                 interaction.deleteReply();
             } else {
-                console.log(interaction.guild.id);
                 if(!settings.has(interaction.guild.id)) {
                     setSettings(interaction.guild);
                     log.debug('Creating settings for guild');
                 }
                 settings.set(interaction.guild.id, value, setting);
-                interaction.editReply({content: 'Successfully updated setting!', embeds: [], components: []});
+
+                const embed = new EmbedBuilder()
+                    .setColor('#0099ff')
+                    .setTitle('Success')
+                    .setDescription('Sucessfully updated setting!')
+                    .setTimestamp();
+                
+                interaction.editReply({embeds: [embed], components: []});
             }
         })
         .catch(() => {
             log.debug('No interactions colected');
-            interaction.editReply({content: 'Timed out', embeds: [], components: []});
+            
+            const embed = new EmbedBuilder()
+                .setColor('#0099ff')
+                .setTitle('Timed out')
+                .setDescription('Timed out, you took to long to confirm')
+                .setTimestamp();
+
+            interaction.editReply({embeds: [embed], components: []});
         });
 };
 

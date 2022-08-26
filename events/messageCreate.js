@@ -1,6 +1,7 @@
 const log = require ('../log');
 const config = require('../config');
 const { permlevel, getSettings } = require('../modules/functions');
+const { EmbedBuilder } = require('discord.js');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = async (client, message) => {
@@ -11,7 +12,12 @@ module.exports = async (client, message) => {
 
     const prefixMention = new RegExp(`<@!?${client.user.id}> ?$`);
     if(message.content.match(prefixMention)) {
-        return message.reply(`My prefix on this guild is \`${settings.prefix}\``);
+        const embed  = new EmbedBuilder()
+            .setColor('#0099ff')
+            .setTitle('Prefix')
+            .setDescription(`My prefix on this server is \`${settings.prefix}\``)
+            .setTimestamp();
+        return message.reply({embeds: [embed]});
     }
 
     const prefix = new RegExp(`^<@!?${client.user.id}> |^\\${settings.prefix}`).exec(message.content);
@@ -28,12 +34,26 @@ module.exports = async (client, message) => {
     if(!cmd) return;
     if(!cmd.conf.enabled) return;
 
-    if(cmd && !message.guild && cmd.conf.guildOnly) return message.reply('This command is unvailable via DMs, Please run this in a server');
-
+    if(cmd && !message.guild && cmd.conf.guildOnly) {
+        const embed = new EmbedBuilder()
+            .setColor('#0099ff')
+            .setTitle('Server only command')
+            .setDescription('This command is unavailable via DMs\nPlease run this in a server')
+            .setTimestamp();
+        return message.reply({embeds: [embed]});
+    }
     const level = permlevel(message);
 
-    if(level < container.levelCache[cmd.conf.permlevel]) {
-        if(settings.systemNotice === 'true') return message.reply(`You do not have permission to use this command.\nThis command requires \`${cmd.conf.permLevel}\`\nYou have \`${config.permLevels.find(l => l.level === level).name}\``);
+    if(level < container.levelCache[cmd.conf.permLevel]) {
+        if(settings.systemnotice) { 
+            const embed = new EmbedBuilder()
+                .setColor('#0099ff')
+                .setTitle('Insufficient permissions')
+                .setDescription(`You do not have permission to run this command.\nThis command requires you to be a \`${cmd.conf.permLevel}\`\nYou are a \`${config.permLevels.find(l => l.level === level).name}\``)
+                .setTimestamp();
+            message.reply({embeds: [embed]});
+        }
+        return;
     }
 
 
@@ -43,7 +63,12 @@ module.exports = async (client, message) => {
     } catch(e) {
         console.error(e);
         log.error(`The command ${cmd.help.name} ran by ${message.author.id} encountered an error`);
-        message.reply(`There was a problem with your request.\n\`\`\`${e.message}\`\`\`\nPlease report any bugs to \`Blobadoodle#1066\``)
+        const embed = new EmbedBuilder()
+            .setColor('#ee4b2b')
+            .setTitle('Error')
+            .setDescription(`There was a problem running the command.\n\`\`\`${e.message}\`\`\`\nPlease report any bugs to \`Blobadoodle#1066\``)
+            .setTimestamp();
+        message.reply({embeds: [embed]})
             .catch(e => {
                 console.error(e);
                 log.error('An error occured replying to an error');
