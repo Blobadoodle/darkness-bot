@@ -52,7 +52,11 @@ exports.run = async (client, interaction) => {
             if(i.customId == 'settingsCancel') {
                 interaction.deleteReply();
             } else {
-                if(!settings.has(interaction.guild.id)) setSettings(interaction.guild);
+                console.log(interaction.guild.id);
+                if(!settings.has(interaction.guild.id)) {
+                    setSettings(interaction.guild);
+                    log.debug('Creating settings for guild');
+                }
                 settings.set(interaction.guild.id, value, setting);
                 interaction.editReply({content: 'Successfully updated setting!', embeds: [], components: []});
             }

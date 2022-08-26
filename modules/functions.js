@@ -20,7 +20,7 @@ function permlevel(message) {
 
 function getSettings(guild) {
     let guildConf = undefined;
-    if(guild != undefined) settings.get(guild.id);
+    if(guild != undefined) guildConf = settings.get(guild.id);
 
     if(guildConf != null && guildConf != undefined) {
         return guildConf;
