@@ -22,7 +22,7 @@ class Logger {
             this.info(`Created folder ${loc}`);
         }
     }
-    #log(msg, color, level) {
+    log(msg, color, level) {
         const d = new Date();
         const log = `[${colors[color]}${level}${colors['reset']}][${d.toLocaleDateString()} ${d.toLocaleTimeString()}] ${msg}`;
         const filelog = `[${level}][${d.toLocaleDateString()} ${d.toLocaleTimeString()}] ${msg}\n`;
@@ -40,16 +40,16 @@ class Logger {
     }
 
     warn(msg) {
-        this.#log(msg, 'yellow', 'WARN');
+        this.log(msg, 'yellow', 'WARN');
     }
     error(msg) {
-        this.#log(msg, 'red', 'ERROR');
+        this.log(msg, 'red', 'ERROR');
     }
     info(msg) {
-        this.#log(msg, 'green', 'INFO');
+        this.log(msg, 'green', 'INFO');
     }
     debug(msg) {
-        this.#log(msg, 'blue', 'DEBUG');
+        this.log(msg, 'blue', 'DEBUG');
     }
 }
 
