@@ -1,10 +1,10 @@
-const log = require ('../log');
-const config = require('../config');
-const { permlevel, getSettings } = require('../modules/functions');
-const { EmbedBuilder } = require('discord.js');
+import log from '../log.js';
+import config from '../config.js';
+import { permlevel, getSettings } from '../modules/functions.js';
+import { EmbedBuilder } from 'discord.js';
 
 // eslint-disable-next-line no-unused-vars
-module.exports = async (client, message) => {
+export const run = async (client, message) => {
     if(message.author.bot) return;
     const { container } = client;
 

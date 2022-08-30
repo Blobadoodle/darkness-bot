@@ -1,5 +1,5 @@
-const { version, EmbedBuilder } = require('discord.js');
-const package = require('../package.json');
+import { version, EmbedBuilder } from 'discord.js';
+import { readFileSync } from 'node:fs';
 
 function format_uptime(uptime) {
     const hours = Math.floor(uptime / (60*60));
@@ -10,10 +10,12 @@ function format_uptime(uptime) {
 }
 
 // eslint-disable-next-line no-unused-vars
-exports.run = (client, message, args, level) => {
+export const run = (client, message, args, level) => {
     const commit = require('child_process')
         .execSync('git rev-parse --short HEAD')
         .toString().trim();
+
+    const npmpackage = JSON.parse(readFileSync('../package.json'));
 
     const embed = new EmbedBuilder()
         .setColor('#0099ff')
@@ -26,7 +28,7 @@ exports.run = (client, message, args, level) => {
             { name: 'Channels', value: client.channels.cache.size.toString(), inline: true },
             { name: 'Discord.js', value: `v${version}`, inline: true },
             { name: 'Node.js', value: process.version, inline: true },
-            { name: 'Version', value: package.version, inline: true },
+            { name: 'Version', value: npmpackage.version, inline: true },
             { name: 'Commit', value: commit, inline: true },
             { name: 'Uptime', value: format_uptime(process.uptime())}
         )
@@ -35,14 +37,14 @@ exports.run = (client, message, args, level) => {
     return message.reply({embeds: [embed]});
 };
 
-exports.conf = {
+export const conf = {
     enabled: true,
     guildOnly: false,
     aliases: [],
     permLevel: 'Bot Admin'
 };
 
-exports.help = {
+export const help = {
     name: 'stats',
     category: 'Miscellaneous',
     description: 'Give some useful bot statistics',

@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-exports.run = async (client, message, args, level) => {
-    console.log(level);
+export const run = async (client, message, args, level) => {
+
     const [globalCmds, guildCmds] = client.container.slash.partition(c => !c.conf.guildOnly);
 
     const msg = await message.reply('Deploying commands!');
@@ -12,14 +12,14 @@ exports.run = async (client, message, args, level) => {
     msg.edit('All commands deployed');
 };
 
-exports.conf = {
+export const conf = {
     enabled: true,
     guildOnly: false,
     aliases: [],
     permLevel: 'Bot Owner'
 };
 
-exports.help = {
+export const help = {
     name: 'deploy',
     category: 'Misc',
     description: 'Deploy Slash Commands',

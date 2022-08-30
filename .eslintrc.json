@@ -1,6 +1,5 @@
 {
     "env": {
-        "commonjs": true,
         "es2021": true,
         "node": true
     },
@@ -8,7 +7,8 @@
     "overrides": [
     ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "rules": {
         "indent": [
@@ -29,10 +29,14 @@
         ],
         "keyword-spacing": [
             "error",
-            { "after": false},
-            { "overrides": {
-                "else": {"after": true}
-            }}
+            {
+                "after": true,
+                "overrides": {
+                    "if": {"after": false},
+                    "catch": {"after": false},
+                    "for": {"after": false}
+                }
+            }
         ]
     }
 }

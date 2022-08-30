@@ -1,10 +1,4 @@
-const Enmap = require('enmap');
+import Enmap from 'enmap';
 
-module.exports = {
-    settings: new Enmap({
-        name: 'settings',
-    }),
-    userSettings: new Enmap({
-        name: 'usersettings',
-    }),
-};
+export const settings = new Enmap({name: 'settings'});
+export const usersettings = new Enmap({name: 'usersettings'});

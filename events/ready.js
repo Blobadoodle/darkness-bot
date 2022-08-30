@@ -1,5 +1,5 @@
-const log = require ('../log');
+import log from '../log.js';
 
-module.exports = async client => {
+export const run = async client => {
     log.info(`Logged in as ${client.user.tag}`);
 };

@@ -1,11 +1,11 @@
-const { SlashCommandBuilder, EmbedBuilder, roleMention, channelMention, userMention, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
-const config = require('../config');
-const log = require('../log');
-const { settings } = require('../modules/settings');
-const { setSettings } = require('../modules/functions');
+import { SlashCommandBuilder, EmbedBuilder, roleMention, channelMention, userMention, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } from 'discord.js';
+import config from '../config.js';
+import log from '../log.js';
+import { settings } from '../modules/settings.js';
+import { setSettings } from '../modules/functions.js';
 
 // eslint-disable-next-line no-unused-vars
-exports.run = async (client, interaction) => {
+export const run = async (client, interaction) => {
     const setting = interaction.options.getSubcommand();
     let value = interaction.options.get('value');
     let prettyValue = value.value;
@@ -18,7 +18,7 @@ exports.run = async (client, interaction) => {
     } else if('user' in value) {
         prettyValue = userMention(value.user.id);
         value = value.user.id;
-    }else {
+    } else {
         value = value.value;
     }
 
@@ -80,13 +80,13 @@ exports.run = async (client, interaction) => {
         });
 };
 
-const commandData = new SlashCommandBuilder()
+const commandDataDefault = new SlashCommandBuilder()
     .setName('settings')
     .setDescription('Change the settings for this server');
 
 const defaults = config.defaultSettings;
-for(let i of defaults) {
-    commandData.addSubcommand(subcommand => {
+for(const i of defaults) {
+    commandDataDefault.addSubcommand(subcommand => {
         subcommand
             .setName(i.name)
             .setDescription(i.description);
@@ -130,9 +130,9 @@ for(let i of defaults) {
     });
 }
 
-exports.commandData = commandData;
+export const commandData = commandDataDefault;
 
-exports.conf = {
+export const conf = {
     permLevel: 'Administrator',
     guildOnly: true
 };

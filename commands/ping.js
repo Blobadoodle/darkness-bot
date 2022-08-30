@@ -1,21 +1,21 @@
-const log = require('../log.js');
+import log from '../log.js';
 
 // eslint-disable-next-line no-unused-vars
-exports.run = async (client, message, args, level) => {
+export const run = async (client, message, args, level) => {
     const pingMsg = await message.reply('Ping?');
     const latency = pingMsg.createdTimestamp - message.createdTimestamp;
     log.debug(`Pinged. Latency: ${latency}ms`);
     return pingMsg.edit(`Pong!\nLatency: ${latency}ms`);
 };
 
-exports.conf = {
+export const conf = {
     enabled: true,
     guildOnly: false,
     aliases: ['pong'],
     permLevel: 'User'
 };
 
-exports.help = {
+export const help = {
     name: 'ping',
     category: 'Misc',
     description: 'Replies with pong!',

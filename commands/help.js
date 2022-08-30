@@ -1,6 +1,6 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
-exports.run = (client, message, args, level) => {
+export const run = (client, message, args, level) => {
     const { container } = client;
 
     if(!args[0]) {
@@ -12,7 +12,7 @@ exports.run = (client, message, args, level) => {
         const sorted = enabledCommands.sort((p, c) => p.help.category > c.help.category ? 1 : 
             p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
 
-        let fields = [];
+        const fields = [];
 		
         sorted.forEach( c => {
             fields.push({name: c.help.name, value: `${c.help.description}\nUsage: \`${message.settings.prefix}${c.help.usage}\``, inline: true});
@@ -42,14 +42,14 @@ exports.run = (client, message, args, level) => {
 };
 
 
-exports.conf = {
+export const conf = {
     enabled: true,
     guildOnly: false,
     aliases: ['h'],
     permLevel: 'User'
 };
   
-exports.help = {
+export const help = {
     name: 'help',
     category: 'System',
     description: 'Displays all the available commands.',

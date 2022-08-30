@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'node:fs';
 
 const colors = {
     'red': '\x1b[31m',
@@ -8,7 +8,7 @@ const colors = {
     'reset': '\x1b[0m',
 };
 
-class Logger {
+export default class Logger {
     constructor(loc, fn) {
 
         if(loc.endsWith('/')) {
@@ -26,13 +26,13 @@ class Logger {
         const d = new Date();
         const log = `[${colors[color]}${level}${colors['reset']}][${d.toLocaleDateString()} ${d.toLocaleTimeString()}] ${msg}`;
         const filelog = `[${level}][${d.toLocaleDateString()} ${d.toLocaleTimeString()}] ${msg}\n`;
-        if (level === 'ERROR' || level === 'WARN') {
+        if(level === 'ERROR' || level === 'WARN') {
             console.error(log);
         } else {
             console.log(log);
         }
         fs.writeFile(this.loc, filelog, { flag: 'a' }, err => {
-            if (err) {
+            if(err) {
                 console.error(err);
                 return;
             }
@@ -52,5 +52,3 @@ class Logger {
         this.log(msg, 'blue', 'DEBUG');
     }
 }
-
-module.exports = Logger;

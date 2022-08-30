@@ -1,4 +1,4 @@
-const Logger = require('./modules/logger.js'); // Custom logger
+import Logger from './modules/logger.js';
 
 function getDate() {
     const d = new Date();
@@ -7,4 +7,4 @@ function getDate() {
 
 const log = new Logger('./logs/', `${getDate()}.log`); // Create logger object
 
-module.exports = log;
+export default log;

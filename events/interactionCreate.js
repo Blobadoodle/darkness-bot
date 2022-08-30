@@ -1,7 +1,7 @@
-const log = require('../log');
-const { getSettings, permlevel } = require('../modules/functions');
-const config = require('../config');
-const { EmbedBuilder } = require('discord.js');
+import log from '../log.js';
+import { getSettings, permlevel } from '../modules/functions.js';
+import config from '../config.js';
+import { EmbedBuilder } from 'discord.js';
 
 async function handleCommand(client, interaction) {
     
@@ -44,7 +44,7 @@ async function handleCommand(client, interaction) {
 }
 
 // eslint-disable-next-line no-unused-vars
-module.exports = async (client, interaction) => {
+export const run = async (client, interaction) => {
     if(interaction.isChatInputCommand()) await handleCommand(client, interaction);
     else return;
 };

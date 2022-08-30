@@ -1,15 +1,15 @@
-const config = require('../config');
-const { settings } = require('./settings');
+import config from '../config.js';
+import { settings } from './settings.js'; 
 
-function permlevel(message) {
+export function permlevel(message) {
     let permlvl = 0;
   
     const permOrder = config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
   
     while (permOrder.length) {
         const currentLevel = permOrder.shift();
-        if (message.guild && currentLevel.guildOnly) continue;
-        if (currentLevel.check(message)) {
+        if(message.guild && currentLevel.guildOnly) continue;
+        if(currentLevel.check(message)) {
             permlvl = currentLevel.level;
             break;
         }
@@ -18,7 +18,7 @@ function permlevel(message) {
 }
 
 
-function getSettings(guild) {
+export function getSettings(guild) {
     let guildConf = undefined;
     if(guild != undefined) guildConf = settings.get(guild.id);
 
@@ -27,7 +27,7 @@ function getSettings(guild) {
     } else {
         guildConf = config.defaultSettings;
     }
-    let csettings = {};
+    const csettings = {};
 
     for(const i of guildConf) {
         csettings[i.name] = i.value;
@@ -36,10 +36,10 @@ function getSettings(guild) {
     return csettings;
 }
 
-function setSettings(guild) {
+export function setSettings(guild) {
     const defaults = config.defaultSettings;
 
-    let csettings = {};
+    const csettings = {};
 
     for(const i of defaults) {
         csettings[i.name] = i.value;
@@ -47,5 +47,3 @@ function setSettings(guild) {
 
     return settings.set(guild.id, csettings);
 }
-
-module.exports = { permlevel, getSettings, setSettings };

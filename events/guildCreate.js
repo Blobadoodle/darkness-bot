@@ -1,8 +1,8 @@
-const { EmbedBuilder } = require('discord.js');
-const log = require ('../log');
-const { getSettings } = require('../modules/functions');
+import { EmbedBuilder } from 'discord.js';
+import log from '../log.js';
+import { getSettings } from '../modules/functions.js';
 
-module.exports = async (client, guild) => {
+export const run = async (client, guild) => {
     const embed = new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle('Welcome!')
