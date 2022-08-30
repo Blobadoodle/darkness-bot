@@ -1,5 +1,4 @@
-const { GatewayIntentBits } = require('discord.js');
-
+import { GatewayIntentBits } from 'discord.js';
 const config = {
     admins: [], // Bot admins, level 9, user ids
     support: [], // Bot support, level 8, user ids
@@ -60,8 +59,8 @@ const config = {
             check: (message) => {
                 try {
                     const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
-                    if (modRole && message.member.roles.cache.has(modRole.id)) return true;
-                } catch (e) {
+                    if(modRole && message.member.roles.cache.has(modRole.id)) return true;
+                } catch(e) {
                     return false;
                 }
             }
@@ -74,7 +73,7 @@ const config = {
                 try {
                     const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
                     return (adminRole && message.member.roles.cache.has(adminRole.id));
-                } catch (e) {
+                } catch(e) {
                     return false;
                 }
             }
@@ -130,4 +129,4 @@ const config = {
     ]
 };
 
-module.exports = config;
+export default config;
