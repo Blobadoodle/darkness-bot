@@ -11,7 +11,7 @@ export const run = async (client, interaction, level) => {
 
 export const commandData = new SlashCommandBuilder()
     .setName('ping')
-    .setDescription('Replies with pong');
+    .setDescription('Get the bots latency');
 
 export const conf = {
     permLevel: 'User',

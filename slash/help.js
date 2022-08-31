@@ -13,13 +13,13 @@ export const run = async (client, interaction, level) => {
     const fields = [];
 
     sorted.forEach( c => {
-        fields.push({name: c.help.name, value: `${c.help.description}\nUsage: \`/${c.help.usage}\``, inline: true});
+        fields.push({name: c.help.name, value: `${c.help.description}\nUsage: \`/${c.help.usage}\``});
     });
 
     const embed = new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle('Help')
-        .setDescription('Help for all slash commands')
+        .setDescription('Help for all available slash commands')
         .addFields(...fields)
         .setFooter({text: 'For any bug reports/feature requests/support with this bot please send me a message on Twitter or create a GitHub issue.'})
         .setTimestamp();
@@ -48,8 +48,8 @@ export const conf = {
 };
 
 export const help = {
-    name: 'ping',
+    name: 'help',
     category: 'System',
-    description: 'Get the bots latency',
-    usage: 'ping'
+    description: 'Displays all the available slash commands',
+    usage: 'help'
 };

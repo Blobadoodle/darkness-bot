@@ -14,13 +14,13 @@ export const run = (client, message, args, level) => {
     const fields = [];
 		
     sorted.forEach( c => {
-        fields.push({name: c.help.name, value: `${c.help.description}\nUsage: \`${message.settings.prefix}${c.help.usage}\``, inline: true});
+        fields.push({name: c.help.name, value: `${c.help.description}\nUsage: \`${message.settings.prefix}${c.help.usage}\``});
     });
 
     const embed = new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle('Help')
-        .setDescription('Help for all available commands')
+        .setDescription('Help for all available text commands')
         .addFields(...fields)
         .setFooter({text: 'For any bug reports/feature requests/support with this bot please send me a message on Twitter or create a GitHub issue.'})
         .setTimestamp();
@@ -50,6 +50,6 @@ export const conf = {
 export const help = {
     name: 'help',
     category: 'System',
-    description: 'Displays all the available commands.',
+    description: 'Displays all the available text commands.',
     usage: 'help'
 };
