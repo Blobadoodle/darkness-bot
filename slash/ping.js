@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from 'discord.js';
 import log from '../log.js';
 // eslint-disable-next-line no-unused-vars
-export const run = async (client, interaction) => {
+export const run = async (client, interaction, level) => {
     await interaction.deferReply();
     const reply = await interaction.editReply('Ping?');
     const latency = reply.createdTimestamp - interaction.createdTimestamp;
@@ -16,4 +16,11 @@ export const commandData = new SlashCommandBuilder()
 export const conf = {
     permLevel: 'User',
     guildOnly: false
+};
+
+export const help = {
+    name: 'ping',
+    category: 'System',
+    description: 'Get the bots latency',
+    usage: 'ping'
 };

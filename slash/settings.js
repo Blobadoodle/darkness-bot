@@ -5,7 +5,7 @@ import { settings } from '../modules/settings.js';
 import { setSettings } from '../modules/functions.js';
 
 // eslint-disable-next-line no-unused-vars
-export const run = async (client, interaction) => {
+export const run = async (client, interaction, level) => {
     const setting = interaction.options.getSubcommand();
     let value = interaction.options.get('value');
     let prettyValue = value.value;
@@ -135,4 +135,11 @@ export const commandData = commandDataDefault;
 export const conf = {
     permLevel: 'Administrator',
     guildOnly: true
+};
+
+export const help = {
+    name: 'Settings',
+    category: 'System',
+    description: 'Change the settings for this server',
+    usage: 'settings <setting name> <setting value>'
 };

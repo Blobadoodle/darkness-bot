@@ -20,7 +20,7 @@ async function handleCommand(client, interaction) {
     }
 
     try {
-        await cmd.run(client, interaction);
+        await cmd.run(client, interaction, level);
         log.info(`${interaction.user.id} ran slash command ${cmd.commandData.name}`);
     } catch(e) {
         console.error(e);
