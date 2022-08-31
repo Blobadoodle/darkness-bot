@@ -82,7 +82,8 @@ export const run = async (client, interaction, level) => {
 
 const commandDataDefault = new SlashCommandBuilder()
     .setName('settings')
-    .setDescription('Change the settings for this server');
+    .setDescription('Change the settings for this server')
+    .setDMPermission(false);
 
 const defaults = config.defaultSettings;
 for(const i of defaults) {
@@ -134,7 +135,7 @@ export const commandData = commandDataDefault;
 
 export const conf = {
     permLevel: 'Administrator',
-    guildOnly: true
+    guildOnly: false
 };
 
 export const help = {
