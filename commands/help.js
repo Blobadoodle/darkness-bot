@@ -3,42 +3,40 @@ import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'disc
 export const run = (client, message, args, level) => {
     const { container } = client;
 
-    if(!args[0]) {
-        const myCommands = message.guild ? container.commands.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level) :
-            container.commands.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level && cmd.conf.guildOnly !== true);
+    const myCommands = message.guild ? container.commands.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level) :
+        container.commands.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level && cmd.conf.guildOnly !== true);
 
-        const enabledCommands = myCommands.filter(cmd => cmd.conf.enabled);
+    const enabledCommands = myCommands.filter(cmd => cmd.conf.enabled);
 
-        const sorted = enabledCommands.sort((p, c) => p.help.category > c.help.category ? 1 : 
-            p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
+    const sorted = enabledCommands.sort((p, c) => p.help.category > c.help.category ? 1 : 
+        p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
 
-        const fields = [];
+    const fields = [];
 		
-        sorted.forEach( c => {
-            fields.push({name: c.help.name, value: `${c.help.description}\nUsage: \`${message.settings.prefix}${c.help.usage}\``, inline: true});
-        });
+    sorted.forEach( c => {
+        fields.push({name: c.help.name, value: `${c.help.description}\nUsage: \`${message.settings.prefix}${c.help.usage}\``, inline: true});
+    });
 
-        const embed = new EmbedBuilder()
-            .setColor('#0099ff')
-            .setTitle('Help')
-            .setDescription('Help for all available commands')
-            .addFields(...fields)
-            .setFooter({text: 'For any bug reports/feature requests/support with this bot please send me a message on Twitter or create a GitHub issue.'})
-            .setTimestamp();
+    const embed = new EmbedBuilder()
+        .setColor('#0099ff')
+        .setTitle('Help')
+        .setDescription('Help for all available commands')
+        .addFields(...fields)
+        .setFooter({text: 'For any bug reports/feature requests/support with this bot please send me a message on Twitter or create a GitHub issue.'})
+        .setTimestamp();
 
-        const row = new ActionRowBuilder().addComponents(
-            new ButtonBuilder()
-                .setLabel('Twitter')
-                .setStyle(ButtonStyle.Link)
-                .setURL('https://twitter.com/Blobadoodle'),
-            new ButtonBuilder()
-                .setLabel('GitHub')
-                .setStyle(ButtonStyle.Link)
-                .setURL('https://github.com/Blobadoodle/bot-template')
-        );
+    const row = new ActionRowBuilder().addComponents(
+        new ButtonBuilder()
+            .setLabel('Twitter')
+            .setStyle(ButtonStyle.Link)
+            .setURL('https://twitter.com/Blobadoodle'),
+        new ButtonBuilder()
+            .setLabel('GitHub')
+            .setStyle(ButtonStyle.Link)
+            .setURL('https://github.com/Blobadoodle/bot-template')
+    );
 
-        return message.channel.send({embeds: [embed], components: [row]});
-    }
+    return message.channel.send({embeds: [embed], components: [row]});
 };
 
 
