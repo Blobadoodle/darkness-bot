@@ -24,8 +24,8 @@ export const run = async (client, message) => {
 
     if(!prefix) return;
 
-    const args = message.content.split(' ');
-    const command = args.shift().substring(1).toLowerCase();
+    const args = message.content.slice(prefix[0].length).trim().split(' ');
+    const command = args.shift().toLowerCase();
 
     if(message.guild && !message.member) await message.guild.members.fetch(message.author);
 
