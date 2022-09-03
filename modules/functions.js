@@ -8,12 +8,14 @@ export function permlevel(message) {
   
     while (permOrder.length) {
         const currentLevel = permOrder.shift();
-        if(message.guild && currentLevel.guildOnly) continue;
+        if(!message.guild && currentLevel.guildOnly) continue;
+
         if(currentLevel.check(message)) {
             permlvl = currentLevel.level;
             break;
         }
     }
+
     return permlvl;
 }
 

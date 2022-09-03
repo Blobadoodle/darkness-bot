@@ -22,18 +22,14 @@ export const run = (client, message, args, level) => {
         .setTitle('Help')
         .setDescription('Help for all available text commands')
         .addFields(...fields)
-        .setFooter({text: 'For any bug reports/feature requests/support with this bot please send me a message on Twitter or create a GitHub issue.'})
+        .setFooter({text: 'For any bug reports/feature requests/support with this bot please send me a message on Twitter.'})
         .setTimestamp();
 
     const row = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
             .setLabel('Twitter')
             .setStyle(ButtonStyle.Link)
-            .setURL('https://twitter.com/Blobadoodle'),
-        new ButtonBuilder()
-            .setLabel('GitHub')
-            .setStyle(ButtonStyle.Link)
-            .setURL('https://github.com/Blobadoodle/bot-template')
+            .setURL('https://twitter.com/Blobadoodle')
     );
 
     return message.channel.send({embeds: [embed], components: [row]});
