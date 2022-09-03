@@ -1,5 +1,9 @@
 import { version, EmbedBuilder } from 'discord.js';
 import { readFileSync } from 'node:fs';
+import { execSync } from 'child_process';
+
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 function format_uptime(uptime) {
     const hours = Math.floor(uptime / (60*60));
@@ -11,11 +15,9 @@ function format_uptime(uptime) {
 
 // eslint-disable-next-line no-unused-vars
 export const run = (client, message, args, level) => {
-    const commit = require('child_process')
-        .execSync('git rev-parse --short HEAD')
-        .toString().trim();
+    const commit = execSync('git rev-parse --short HEAD').toString().trim();
 
-    const npmpackage = JSON.parse(readFileSync('../package.json'));
+    const npmpackage = JSON.parse(readFileSync(`${__dirname}\\..\\package.json`));
 
     const embed = new EmbedBuilder()
         .setColor('#0099ff')

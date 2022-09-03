@@ -1,8 +1,11 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { warns } from '../modules/settings.js';
 
 // eslint-disable-next-line no-unused-vars
 export const run = async (client, interaction, level) => {
     const user = interaction.options.get('user').user;
+    let currentWarns = warns.get(user.id);
+    if(!currentWarns) currentWarns = 0;
 
     const createdAt = user.createdAt.toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'});
 
@@ -10,7 +13,7 @@ export const run = async (client, interaction, level) => {
         .setColor('#0099ff')
         .setTitle(user.tag)
         .setThumbnail(user.displayAvatarURL())
-        .setDescription(`Joined discord on ${createdAt}`)
+        .setDescription(`Joined discord on ${createdAt}\n\nUser has ${currentWarns} warnings`)
         .setTimestamp();
 
     if(user.bot) embed.setFooter({ text: 'BOT'});
